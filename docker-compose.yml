@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  escola_api:
+    build: .
+    container_name: escola_api_container
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/usr/src/app
+      - ./escola.db:/usr/src/app/escola.db
+    environment:
+      FLASK_ENV: production
