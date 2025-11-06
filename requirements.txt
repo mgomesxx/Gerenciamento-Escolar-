@@ -1,8 +1,0 @@
-# requirements.txt
-Flask
-Flask-SQLAlchemy
-Flask-Migrate
-Flask-RESTx
-Flask-Marshmallow
-gunicorn
-python-dotenv
