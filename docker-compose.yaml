@@ -1,6 +1,7 @@
 version: "3.9"
 
 services:
+
   gerenciamento:
     build:
       context: ./gerenciamento
@@ -15,7 +16,9 @@ services:
       - FLASK_ENV=development
     command: python app.py
 
+
   reservas:
+  
     build:
       context: ./reservas
     container_name: reservas
