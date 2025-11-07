@@ -1,16 +1,15 @@
 version: "3.9"
 
 services:
-
   gerenciamento:
     build:
-      context: ./gerenciamento
+      context: ./Gerenciamento
     container_name: gerenciamento
     ports:
       - "5000:5000"
     volumes:
-      - ./gerenciamento:/app
-      - ./gerenciamento/database.db:/app/database.db
+      - ./Gerenciamento:/app
+      - ./data/gerenciamento.db:/app/data/gerenciamento.db
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
@@ -18,15 +17,14 @@ services:
 
 
   reservas:
-
     build:
-      context: ./reservas
+      context: ./Reservas
     container_name: reservas
     ports:
-      - "5001:5000" 
+      - "5001:5000"
     volumes:
-      - ./reservas:/app
-      - ./reservas/database.db:/app/database.db
+      - ./Reservas:/app
+      - ./data/reservas.db:/app/data/reservas.db
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development
@@ -36,13 +34,13 @@ services:
 
   atividades-notas:
     build:
-      context: ./atividades-notas
+      context: ./Atividade-Notas
     container_name: atividades-notas
     ports:
       - "5002:5000"
     volumes:
-      - ./atividades-notas:/app
-      - ./atividades-notas/database.db:/app/database.db
+      - ./Atividade-Notas:/app
+      - ./data/atividades-notas.db:/app/data/atividades-notas.db
     environment:
       - FLASK_APP=app.py
       - FLASK_ENV=development

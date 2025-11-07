@@ -1,7 +1,7 @@
 from flask import Flask
 from flasgger import Swagger
-from controller.route import setup_routes
-from models.database import db
+from Controller.routes import setup_routes
+from Model.database import db
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
