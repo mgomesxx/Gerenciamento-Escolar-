@@ -80,6 +80,7 @@ def update_atividade(atividade_id, data):
     db.session.commit()
     return atividade.to_dict(), 200
 
+
 def delete_atividade(atividade_id):
     atividade = Atividade.query.get(atividade_id)
     if atividade:
