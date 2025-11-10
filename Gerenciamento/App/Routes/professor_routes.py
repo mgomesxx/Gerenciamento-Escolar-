@@ -1,18 +1,18 @@
 from flask import Blueprint, request, jsonify
-from App.Controllers import aluno_controller
+from app.controllers import professor_controller
 
-aluno_bp = Blueprint('aluno_bp', __name__, url_prefix='/alunos')
+professor_bp = Blueprint('professor_bp', __name__, url_prefix='/professores')
 
-@aluno_bp.route('/', methods=['GET'])
-def get_alunos():
+@professor_bp.route('/', methods=['GET'])
+def get_professores():
     """
-    Lista todos os alunos
+    Lista todos os professores
     ---
     tags:
-      - Alunos
+      - Professores
     responses:
       200:
-        description: Uma lista de todos os alunos
+        description: Uma lista de professores
         schema:
           type: array
           items:
@@ -24,116 +24,87 @@ def get_alunos():
                 type: string
               idade:
                 type: integer
-              data_nascimento:
+              materia:
                 type: string
-                format: date
-              nota_primeiro_semestre:
-                type: number
-              nota_segundo_semestre:
-                type: number
-              media_final:
-                type: number
-              turma_id:
-                type: integer
-              turma_descricao:
+              observacoes:
                 type: string
     """
-    alunos = aluno_controller.get_alunos()
-    return jsonify(alunos)
+    professores = professor_controller.get_professores()
+    return jsonify(professores)
 
-@aluno_bp.route('/<int:aluno_id>', methods=['GET'])
-def get_aluno(aluno_id):
+@professor_bp.route('/<int:professor_id>', methods=['GET'])
+def get_professor(professor_id):
     """
-    Busca um aluno por ID
+    Busca um professor por ID
     ---
     tags:
-      - Alunos
+      - Professores
     parameters:
-      - name: aluno_id
-        in: path
+      - in: path
+        name: professor_id
         type: integer
         required: true
-        description: ID único do aluno.
+        description: ID do professor a ser buscado
     responses:
       200:
-        description: Detalhes do aluno.
+        description: Detalhes do professor
       404:
-        description: Aluno não encontrado.
+        description: Professor não encontrado
     """
-    aluno = aluno_controller.get_aluno(aluno_id)
-    if aluno:
-        return jsonify(aluno)
-    return jsonify({'error': 'Aluno não encontrado'}), 404
+    professor = professor_controller.get_professor(professor_id)
+    if professor:
+        return jsonify(professor)
+    return jsonify({'error': 'Professor não encontrado'}), 404
 
-@aluno_bp.route('/', methods=['POST'])
-def create_aluno():
+@professor_bp.route('/', methods=['POST'])
+def create_professor():
     """
-    Cria um novo aluno
+    Cria um novo professor
     ---
     tags:
-      - Alunos
+      - Professores
     parameters:
       - in: body
         name: body
-        required: true
         schema:
           type: object
           required:
             - nome
-            - turma_id
           properties:
             nome:
               type: string
-              description: Nome do aluno.
             idade:
               type: integer
-              description: Idade do aluno.
-            data_nascimento:
+            materia:
               type: string
-              format: date
-              example: "2005-10-20"
-            nota_primeiro_semestre:
-              type: number
-              format: float
-            nota_segundo_semestre:
-              type: number
-              format: float
-            turma_id:
-              type: integer
-              description: ID da turma à qual o aluno pertence.
+            observacoes:
+              type: string
     responses:
       201:
-        description: Aluno criado com sucesso.
-      400:
-        description: Dados insuficientes na requisição.
-      404:
-        description: Turma informada não foi encontrada.
+        description: Professor criado com sucesso
     """
     data = request.get_json()
-    if not data or not 'nome' in data or not 'turma_id' in data:
+    if not data or not 'nome' in data:
         return jsonify({'error': 'Dados insuficientes'}), 400
     
-    novo_aluno = aluno_controller.create_aluno(data)
-    if not novo_aluno:
-        return jsonify({'error': 'Turma não encontrada'}), 404
-    return jsonify(novo_aluno), 201
+    novo_professor = professor_controller.create_professor(data)
+    return jsonify(novo_professor), 201
 
-@aluno_bp.route('/<int:aluno_id>', methods=['PUT'])
-def update_aluno(aluno_id):
+@professor_bp.route('/<int:professor_id>', methods=['PUT'])
+def update_professor(professor_id):
     """
-    Atualiza um aluno existente
+    Atualiza um professor existente
     ---
     tags:
-      - Alunos
+      - Professores
     parameters:
-      - name: aluno_id
-        in: path
+      - in: path
+        name: professor_id
         type: integer
         required: true
-        description: ID do aluno a ser atualizado.
+        description: ID do professor a ser atualizado
       - in: body
         name: body
-        required: true
         schema:
           type: object
           properties:
@@ -141,49 +112,42 @@ def update_aluno(aluno_id):
               type: string
             idade:
               type: integer
-            data_nascimento:
+            materia:
               type: string
-              format: date
-            nota_primeiro_semestre:
-              type: number
-              format: float
-            nota_segundo_semestre:
-              type: number
-              format: float
-            turma_id:
-              type: integer
+            observacoes:
+              type: string
     responses:
       200:
-        description: Aluno atualizado com sucesso.
+        description: Professor atualizado com sucesso
       404:
-        description: Aluno ou Turma não encontrado(a).
+        description: Professor não encontrado
     """
     data = request.get_json()
-    aluno_atualizado = aluno_controller.update_aluno(aluno_id, data)
-    if 'error' in aluno_atualizado:
-        return jsonify(aluno_atualizado), 404
-    return jsonify(aluno_atualizado)
+    professor_atualizado = professor_controller.update_professor(professor_id, data)
+    if professor_atualizado:
+        return jsonify(professor_atualizado)
+    return jsonify({'error': 'Professor não encontrado'}), 404
 
-@aluno_bp.route('/<int:aluno_id>', methods=['DELETE'])
-def delete_aluno(aluno_id):
+@professor_bp.route('/<int:professor_id>', methods=['DELETE'])
+def delete_professor(professor_id):
     """
-    Deleta um aluno
+    Deleta um professor
     ---
     tags:
-      - Alunos
+      - Professores
     parameters:
-      - name: aluno_id
-        in: path
+      - in: path
+        name: professor_id
         type: integer
         required: true
-        description: ID do aluno a ser deletado.
+        description: ID do professor a ser deletado
     responses:
       200:
-        description: Aluno deletado com sucesso.
+        description: Professor deletado com sucesso
       404:
-        description: Aluno não encontrado.
+        description: Professor não encontrado
     """
-    sucesso = aluno_controller.delete_aluno(aluno_id)
-    if sucesso:
-        return jsonify({'message': 'Aluno deletado com sucesso'})
-    return jsonify({'error': 'Aluno não encontrado'}), 404
+    deletado = professor_controller.delete_professor(professor_id)
+    if deletado:
+        return jsonify({'message': 'Professor deletado com sucesso'})
+    return jsonify({'error': 'Professor não encontrado'}), 404

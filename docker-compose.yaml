@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   gerenciamento:
     build: ./gerenciamento
@@ -45,13 +47,15 @@ services:
     build: ./atividades
     container_name: atividades
     ports:
-      - "5003:5000" 
+      - "5003:5000" # Expõe na porta 5003 do host
     volumes:
+      # O config.py de atividades usa 'atividades.db'
       - ./atividades/atividades.db:/app/atividades.db 
     environment:
+      # Também precisa de comunicar com o gerenciamento
       - SERVICO_GERENCIAMENTO_URL=http://gerenciamento:5000 
     depends_on:
-      - gerenciamento 
+      - gerenciamento # Depende do gerenciamento para estar online
     networks:
       - rede_escola
 

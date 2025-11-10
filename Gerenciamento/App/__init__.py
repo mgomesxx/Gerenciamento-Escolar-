@@ -11,13 +11,13 @@ def create_app(config_class=Config):
   db.init_app(app)
   Swagger(app)
 
-  from .Routes.professor_routes import professor_bp
+  from .routes.professor_routes import professor_bp
   app.register_blueprint(professor_bp)
 
-  from .Routes.turma_routes import turma_bp
+  from .routes.turma_routes import turma_bp
   app.register_blueprint(turma_bp)
 
-  from .Routes.aluno_routes import aluno_bp
+  from .routes.aluno_routes import aluno_bp
   app.register_blueprint(aluno_bp)
   
   return app

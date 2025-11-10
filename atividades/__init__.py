@@ -12,7 +12,10 @@ def create_app(config_class=Config):
     db.init_app(app)
     Swagger(app)
 
-    from app.routes.reserva_routes import reserva_bp
-    app.register_blueprint(reserva_bp)
+    from app.routes.atividade_routes import atividade_bp
+    app.register_blueprint(atividade_bp)
+    
+    from app.routes.nota_routes import nota_bp
+    app.register_blueprint(nota_bp)
 
     return app

@@ -1,6 +1,5 @@
-
-from App import db
-from App.Model.professor_model import Professor
+from app import db
+from app.models.professor_model import Professor
 
 def get_professores():
     professores = Professor.query.all()

@@ -1,6 +1,6 @@
-from App import db
-from App.Model.aluno_model import Aluno
-from App.Model.turma_model import Turma
+from app import db
+from app.models.aluno_model import Aluno
+from app.models.turma_model import Turma
 from datetime import datetime
 
 def get_alunos():

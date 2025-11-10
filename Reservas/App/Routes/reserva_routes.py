@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from App.Controllers import reserva_controller
+from app.controllers import reserva_controller
 
 reserva_bp = Blueprint('reserva_bp', __name__, url_prefix='/reservas')
 

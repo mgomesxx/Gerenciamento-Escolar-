@@ -1,5 +1,5 @@
-from App import db
-from App.Model.reserva_model import Reserva
+from app import db
+from app.models.reserva_model import Reserva
 import requests
 import os
 from datetime import datetime

@@ -1,6 +1,6 @@
-from App import db
-from App.Model.turma_model import Turma
-from App.Model.professor_model import Professor
+from app import db
+from app.models.turma_model import Turma
+from app.models.professor_model import Professor
 
 def get_turmas():
     turmas = Turma.query.all()

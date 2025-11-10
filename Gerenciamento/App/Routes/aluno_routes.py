@@ -1,5 +1,7 @@
+# app/routes/aluno_routes.py
+
 from flask import Blueprint, request, jsonify
-from App.Controllers import aluno_controller
+from app.controllers import aluno_controller
 
 aluno_bp = Blueprint('aluno_bp', __name__, url_prefix='/alunos')
 

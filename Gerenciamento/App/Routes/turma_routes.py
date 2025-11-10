@@ -1,5 +1,7 @@
+# app/routes/turma_routes.py
+
 from flask import Blueprint, request, jsonify
-from App.Controllers import turma_controller
+from app.controllers import turma_controller
 
 turma_bp = Blueprint('turma_bp', __name__, url_prefix='/turmas')
 
