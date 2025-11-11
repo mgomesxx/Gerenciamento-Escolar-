@@ -17,5 +17,5 @@ class Nota(db.Model):
             'nota': self.nota,
             'aluno_id': self.aluno_id,
             'atividade_id': self.atividade_id,
-            'nome_atividade': self.atividade.nome_atividade if self.atividade else None
+           
         }
